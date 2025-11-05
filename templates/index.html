@@ -3,29 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <title>Calculadora Flask</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+   
 </head>
 <body>
     <div class="container">
-        <h1>Calculadora Flask</h1>
+        <h1>Calculadora de Suma</h1>
         <form method="POST">
-            <input type="number" name="num1" step="any" placeholder="Primer número" required>
-            <input type="number" name="num2" step="any" placeholder="Segundo número" required>
+            <label for="num1">Número 1:</label>
+            <input type="number" step="any" name="num1" required>
 
-            <select name="operacion">
-                <option value="suma">Suma</option>
-                <option value="resta">Resta</option>
-                <option value="multiplicacion">Multiplicación</option>
-                <option value="division">División</option>
-            </select>
+            <label for="num2">Número 2:</label>
+            <input type="number" step="any" name="num2" required>
 
-            <button type="submit">Calcular</button>
+            <button type="submit">Sumar</button>
         </form>
 
-        {% if resultado is not none %}
-        <div class="resultado">
-            <p>Resultado: <strong>{{ resultado }}</strong></p>
-        </div>
+        {% if error %}
+            <div class="error">{{ error }}</div>
+        {% elif resultado is not none %}
+            <div class="resultado">
+                El resultado de la suma es: **{{ resultado }}**
+            </div>
         {% endif %}
     </div>
 </body>
