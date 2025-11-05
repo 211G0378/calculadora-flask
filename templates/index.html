@@ -5,35 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Calculadora Flask</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
   </head>
   <body>
     <main class="container">
       <header>
-        <h1>Calculadora simple</h1>
+        <h1>🧮 Calculadora Flask</h1>
       </header>
 
       {% if error %}
-        <div class="alert alert-error">{{ error }}</div>
+        <div class="alert-error">{{ error }}</div>
       {% endif %}
 
       <form method="post" class="calc-form">
         <div class="row">
-          <label>Número A</label>
-          <input type="text" name="a" value="{{ a }}" placeholder="Ej: 2.5" />
+          <label for="a">Número A</label>
+          <input type="text" id="a" name="a" value="{{ a }}" placeholder="Ej: 2.5" />
         </div>
 
         <div class="row">
-          <label>Número B</label>
-          <input type="text" name="b" value="{{ b }}" placeholder="Ej: 3" />
+          <label for="b">Número B</label>
+          <input type="text" id="b" name="b" value="{{ b }}" placeholder="Ej: 3" />
         </div>
 
         <div class="row">
-          <label>Operación</label>
-          <select name="op">
-            <option value="sum" {% if op=='sum' %}selected{% endif %}>Sumar (+)</option>
-            <option value="sub" {% if op=='sub' %}selected{% endif %}>Restar (-)</option>
-            <option value="mul" {% if op=='mul' %}selected{% endif %}>Multiplicar (×)</option>
-            <option value="div" {% if op=='div' %}selected{% endif %}>Dividir (÷)</option>
+          <label for="op">Operación</label>
+          <select id="op" name="op">
+            <option value="sum" {% if op=='sum' %}selected{% endif %}>➕ Sumar</option>
+            <option value="sub" {% if op=='sub' %}selected{% endif %}>➖ Restar</option>
+            <option value="mul" {% if op=='mul' %}selected{% endif %}>✖ Multiplicar</option>
+            <option value="div" {% if op=='div' %}selected{% endif %}>➗ Dividir</option>
           </select>
         </div>
 
@@ -49,7 +52,7 @@
       {% endif %}
 
       <footer>
-        <small>Deploy de ejemplo — Flask + Railway</small>
+        <small>Desplegado con Flask + Railway — Ejemplo educativo</small>
       </footer>
     </main>
   </body>
