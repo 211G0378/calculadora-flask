@@ -9,17 +9,43 @@ app = Flask(__name__)
 def index():
     resultado = None
     error = None
+    # Mantener los valores ingresados en el formulario
+    num1_previo = ''
+    num2_previo = ''
+    op_previa = '+'
 
     # Lógica para manejar la solicitud POST (cuando se envía el formulario)
     if request.method == 'POST':
         try:
             # Obtiene los valores del formulario
-            num1 = float(request.form.get('num1'))
-            num2 = float(request.form.get('num2'))
+            num1_str = request.form.get('num1')
+            num2_str = request.form.get('num2')
+            operacion = request.form.get('operacion')
 
-            # Realiza la suma
-            resultado = num1 + num2
+            # Almacena los valores previos para mantenerlos en la página
+            num1_previo = num1_str
+            num2_previo = num2_str
+            op_previa = operacion
 
+            # Convierte a float y verifica si son válidos
+            num1 = float(num1_str)
+            num2 = float(num2_str)
+
+            if operacion == '+':
+                resultado = num1 + num2
+            elif operacion == '-':
+                resultado = num1 - num2
+            elif operacion == '*':
+                resultado = num1 * num2
+            elif operacion == '/':
+                if num2 == 0:
+                    raise ZeroDivisionError
+                resultado = num1 / num2
+            else:
+                error = "Operación no válida."
+
+        except ZeroDivisionError:
+            error = "❌ Error: No se puede dividir por cero."
         except (ValueError, TypeError):
             # Maneja errores si los campos no son números válidos
             error = "⚠️ Error: Por favor, introduce números válidos en ambos campos."
@@ -27,8 +53,13 @@ def index():
             # Manejo de cualquier otro error inesperado
             error = f"Un error inesperado ocurrió: {e}"
 
-    # Renderiza la plantilla, pasando el resultado o el error
-    return render_template('index.html', resultado=resultado, error=error)
+    # Renderiza la plantilla, pasando el resultado, el error y los valores previos
+    return render_template('index.html', 
+                           resultado=resultado, 
+                           error=error, 
+                           num1_previo=num1_previo,
+                           num2_previo=num2_previo,
+                           op_previa=op_previa)
 
 # Esta línea es necesaria para que Railway pueda iniciar la aplicación
 if __name__ == '__main__':
