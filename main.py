@@ -1,28 +1,37 @@
+import os
 from flask import Flask, render_template, request
 
+# Inicializa la aplicación Flask
 app = Flask(__name__)
 
-@app.route("/", methods=["GET", "POST"])
+# Define la ruta principal
+@app.route('/', methods=['GET', 'POST'])
 def index():
-    expression = ""
-    result = None
+    resultado = None
     error = None
 
-    if request.method == "POST":
-        expression = request.form.get("expression", "")
-        btn = request.form.get("btn")
+    # Lógica para manejar la solicitud POST (cuando se envía el formulario)
+    if request.method == 'POST':
+        try:
+            # Obtiene los valores del formulario
+            num1 = float(request.form.get('num1'))
+            num2 = float(request.form.get('num2'))
 
-        if btn == "C":
-            expression = ""
-        elif btn == "=":
-            try:
-                result = eval(expression)
-            except Exception:
-                error = "Expresión inválida"
-        else:
-            expression += btn
+            # Realiza la suma
+            resultado = num1 + num2
 
-    return render_template("index.html", expression=expression, result=result, error=error)
+        except (ValueError, TypeError):
+            # Maneja errores si los campos no son números válidos
+            error = "⚠️ Error: Por favor, introduce números válidos en ambos campos."
+        except Exception as e:
+            # Manejo de cualquier otro error inesperado
+            error = f"Un error inesperado ocurrió: {e}"
 
-if __name__ == "__main__":
-    app.run(debug=True)
+    # Renderiza la plantilla, pasando el resultado o el error
+    return render_template('index.html', resultado=resultado, error=error)
+
+# Esta línea es necesaria para que Railway pueda iniciar la aplicación
+if __name__ == '__main__':
+    # Usa la variable de entorno PORT proporcionada por Railway, o usa 5000 por defecto
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
