@@ -1,52 +1,30 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+<head>
+    <meta charset="UTF-8">
     <title>Calculadora Flask</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-  </head>
+   
+</head>
+<body>
+    <div class="container">
+        <h1>Calculadora de Suma</h1>
+        <form method="POST">
+            <label for="num1">Número 1:</label>
+            <input type="number" step="any" name="num1" required>
 
-  <body>
-    <div class="calculator">
-      <form method="post">
-        <input type="text" name="expression" value="{{ expression or '' }}" readonly class="display" />
+            <label for="num2">Número 2:</label>
+            <input type="number" step="any" name="num2" required>
 
-        <div class="buttons">
-          <button type="submit" name="btn" value="7">7</button>
-          <button type="submit" name="btn" value="8">8</button>
-          <button type="submit" name="btn" value="9">9</button>
-          <button type="submit" name="btn" value="/">÷</button>
+            <button type="submit">Sumar</button>
+        </form>
 
-          <button type="submit" name="btn" value="4">4</button>
-          <button type="submit" name="btn" value="5">5</button>
-          <button type="submit" name="btn" value="6">6</button>
-          <button type="submit" name="btn" value="*">×</button>
-
-          <button type="submit" name="btn" value="1">1</button>
-          <button type="submit" name="btn" value="2">2</button>
-          <button type="submit" name="btn" value="3">3</button>
-          <button type="submit" name="btn" value="-">−</button>
-
-          <button type="submit" name="btn" value="0">0</button>
-          <button type="submit" name="btn" value=".">.</button>
-          <button type="submit" name="btn" value="C">C</button>
-          <button type="submit" name="btn" value="+">+</button>
-
-          <button type="submit" name="btn" value="=" class="equal">Calcular</button>
-        </div>
-      </form>
-
-      {% if result is not none %}
-        <div class="result">Resultado: {{ result }}</div>
-      {% endif %}
-
-      {% if error %}
-        <div class="alert-error">{{ error }}</div>
-      {% endif %}
+        {% if error %}
+            <div class="error">{{ error }}</div>
+        {% elif resultado is not none %}
+            <div class="resultado">
+                El resultado de la suma es: **{{ resultado }}**
+            </div>
+        {% endif %}
     </div>
-  </body>
+</body>
 </html>
