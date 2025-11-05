@@ -9,51 +9,44 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
   </head>
+
   <body>
-    <main class="container">
-      <header>
-        <h1>🧮 Calculadora Flask</h1>
-      </header>
+    <div class="calculator">
+      <form method="post">
+        <input type="text" name="expression" value="{{ expression or '' }}" readonly class="display" />
 
-      {% if error %}
-        <div class="alert-error">{{ error }}</div>
-      {% endif %}
+        <div class="buttons">
+          <button type="submit" name="btn" value="7">7</button>
+          <button type="submit" name="btn" value="8">8</button>
+          <button type="submit" name="btn" value="9">9</button>
+          <button type="submit" name="btn" value="/">÷</button>
 
-      <form method="post" class="calc-form">
-        <div class="row">
-          <label for="a">Número A</label>
-          <input type="text" id="a" name="a" value="{{ a }}" placeholder="Ej: 2.5" />
-        </div>
+          <button type="submit" name="btn" value="4">4</button>
+          <button type="submit" name="btn" value="5">5</button>
+          <button type="submit" name="btn" value="6">6</button>
+          <button type="submit" name="btn" value="*">×</button>
 
-        <div class="row">
-          <label for="b">Número B</label>
-          <input type="text" id="b" name="b" value="{{ b }}" placeholder="Ej: 3" />
-        </div>
+          <button type="submit" name="btn" value="1">1</button>
+          <button type="submit" name="btn" value="2">2</button>
+          <button type="submit" name="btn" value="3">3</button>
+          <button type="submit" name="btn" value="-">−</button>
 
-        <div class="row">
-          <label for="op">Operación</label>
-          <select id="op" name="op">
-            <option value="sum" {% if op=='sum' %}selected{% endif %}>➕ Sumar</option>
-            <option value="sub" {% if op=='sub' %}selected{% endif %}>➖ Restar</option>
-            <option value="mul" {% if op=='mul' %}selected{% endif %}>✖ Multiplicar</option>
-            <option value="div" {% if op=='div' %}selected{% endif %}>➗ Dividir</option>
-          </select>
-        </div>
+          <button type="submit" name="btn" value="0">0</button>
+          <button type="submit" name="btn" value=".">.</button>
+          <button type="submit" name="btn" value="C">C</button>
+          <button type="submit" name="btn" value="+">+</button>
 
-        <div class="row">
-          <button type="submit">Calcular</button>
+          <button type="submit" name="btn" value="=" class="equal">Calcular</button>
         </div>
       </form>
 
       {% if result is not none %}
-        <div class="result">
-          Resultado: <strong>{{ result }}</strong>
-        </div>
+        <div class="result">Resultado: {{ result }}</div>
       {% endif %}
 
-      <footer>
-        <small>Desplegado con Flask + Railway — Ejemplo educativo</small>
-      </footer>
-    </main>
+      {% if error %}
+        <div class="alert-error">{{ error }}</div>
+      {% endif %}
+    </div>
   </body>
 </html>
